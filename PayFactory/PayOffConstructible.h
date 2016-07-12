@@ -10,7 +10,7 @@ class PayOffHelper
 {
 public:
 	PayOffHelper(std::string);
-	static PayOff* Create(double);
+	static std::shared_ptr<PayOff> Create(double);
 };
 
 template <class T>
