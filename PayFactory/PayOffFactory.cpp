@@ -6,7 +6,7 @@ void PayOffFactory::RegisterPayOff(std::string PayOffID, CreatePayOffFunction Cr
 	TheCreatorFunctions.insert(std::pair<std::string, CreatePayOffFunction>(PayOffID, CreatorFunction));
 }
 
-PayOff* PayOffFactory::CreatePayOff(std::string PayOffID, double Strike)
+std::shared_ptr<PayOff> PayOffFactory::CreatePayOff(std::string PayOffID, double Strike)
 {
 	std::map<std::string, CreatePayOffFunction>::const_iterator i = TheCreatorFunctions.find(PayOffID);
 	

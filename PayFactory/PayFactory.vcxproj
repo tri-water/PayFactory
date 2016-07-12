@@ -113,9 +113,11 @@
     <ClCompile Include="PayFactoryMain.cpp" />
     <ClCompile Include="PayOff3.cpp" />
     <ClCompile Include="PayOffFactory.cpp" />
+    <ClCompile Include="PayOffRegistration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PayOff3.h" />
+    <ClInclude Include="PayOffConstructible.h" />
     <ClInclude Include="PayOffFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

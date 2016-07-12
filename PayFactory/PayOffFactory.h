@@ -2,19 +2,20 @@
 #include "PayOff3.h"
 #include <map>
 #include <string>
+#include <memory>
 
-// Singleton pattern
+// Singleton pattern: define a class that can only construct a single implementation
 class PayOffFactory
 {
 public:
 	// the typedef allows us to refer to pointers to functions
 	// which take in a double and spit out a PayOff* as CreatePayOffFunction
-	typedef PayOff* (*CreatePayOffFunction)(double);
+	typedef std::shared_ptr<PayOff> (*CreatePayOffFunction)(double);
 
 	// a static function returns a static object, which will only be constructed once
 	static PayOffFactory& Instance();
 	void RegisterPayOff(std::string, CreatePayOffFunction);
-	PayOff* CreatePayOff(std::string PayOffID, double Strike);
+	std::shared_ptr<PayOff> CreatePayOff(std::string PayOffID, double Strike);
 	~PayOffFactory() {};
 
 private:
