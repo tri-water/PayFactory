@@ -3,9 +3,22 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <boost\core\noncopyable.hpp>
+
+template<class T>
+class Singleton : private boost::noncopyable
+{
+public:
+	static T& Instance() {
+		static T one;
+		return one;
+	}
+protected:
+	Singleton() {};
+};
 
 // Singleton pattern: define a class that can only construct a single implementation
-class PayOffFactory
+class PayOffFactory : public Singleton<PayOffFactory>
 {
 public:
 	// the typedef allows us to refer to pointers to functions
@@ -13,7 +26,6 @@ public:
 	typedef std::shared_ptr<PayOff> (*CreatePayOffFunction)(double);
 
 	// a static function returns a static object, which will only be constructed once
-	static PayOffFactory& Instance();
 	void RegisterPayOff(std::string, CreatePayOffFunction);
 	std::shared_ptr<PayOff> CreatePayOff(std::string PayOffID, double Strike);
 	~PayOffFactory() {};
@@ -23,6 +35,6 @@ private:
 	PayOffFactory() {}
 	// Keep the constructor and assignment function private
 	// only allowing it called by static function Instance
-	PayOffFactory(const PayOffFactory&) {}
-	PayOffFactory& operator = (const PayOffFactory) { return *this; }
+	friend class Singleton<PayOffFactory>;
+
 };
